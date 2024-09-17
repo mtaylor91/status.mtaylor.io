@@ -2,6 +2,8 @@ export { htmlHealth };
 
 import { render } from 'preact-render-to-string';
 
+import { health } from '../modules';
+
 
 const css = `
 html, body {
@@ -14,6 +16,8 @@ html, body {
 
 
 function HealthComponent() {
+  const response = health()
+
   const divStyle = {
     width: "100vw",
     height: "100vh",
@@ -32,8 +36,18 @@ function HealthComponent() {
 
   return (
     <div style={divStyle}>
-      <h1 style={h1Style}>Status</h1>
-      <p>ok</p>
+      <h1 style={h1Style}>{response.status}</h1>
+      {response.message && <p>{response.message}</p>}
+      {response.components && (
+        <ul>
+          {Object.entries(response.components).map(([name, component]) => (
+            <li key={name}>
+              <strong>{name}</strong>: {component.status}
+              {component.message && <p>{component.message}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

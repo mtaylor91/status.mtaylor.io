@@ -1,8 +1,8 @@
-export { jsonHealth };
+export { jsonHealth }
+
+import { health } from '../modules'
 
 
 function jsonHealth() {
-  return {
-    status: "ok"
-  }
+  return health()
 }
