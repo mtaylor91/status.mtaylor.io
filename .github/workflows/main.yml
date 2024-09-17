@@ -52,6 +52,7 @@ jobs:
     - build
     - version
     outputs:
+      sha: ${{ steps.tag.outputs.sha }}
       tag: ${{ needs.version.outputs.tag }}
     steps:
     - name: Checkout
@@ -65,6 +66,10 @@ jobs:
         git config --global user.email "githubactions@mtaylor.io"
         git config --global user.name "GitHub Actions"
         tag=${{ needs.version.outputs.tag }}
+        pushd deploy
+        kustomize edit set image images.home.mtaylor.io/status.mtaylor.io:${tag}
+        popd
+        git commit -a -m "Release ${tag}"
         git tag -a ${tag} -m "Release ${tag}"
         git push origin ${tag}
         sha=$(git rev-parse --short HEAD)
@@ -75,6 +80,7 @@ jobs:
     needs:
     - tag
     outputs:
+      sha: ${{ needs.tag.outputs.sha }}
       tag: ${{ needs.tag.outputs.tag }}
     steps:
     - name: "Set up Docker Buildx"
@@ -94,6 +100,7 @@ jobs:
         tags: |
           latest
           ${{ needs.tag.outputs.tag }}
+          sha-${{ needs.tag.outputs.sha }}
     - name: "Docker Build"
       uses: "docker/build-push-action@v6"
       with:
