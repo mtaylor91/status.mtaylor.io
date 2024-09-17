@@ -6,7 +6,13 @@
     "module": "ESNext",
     "moduleDetection": "force",
     "jsx": "react-jsx",
+    "jsxFactory": "Html.createElement",
+    "jsxFragmentFactory": "Html.Fragment",
+    "jsxImportSource": "preact",
     "allowJs": true,
+
+    // Plugins
+    "plugins": [{ "name": "@kitajs/ts-html-plugin" }],
 
     // Bundler mode
     "moduleResolution": "bundler",
