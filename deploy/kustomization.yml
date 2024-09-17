@@ -1,0 +1,5 @@
+commonLabels:
+  app: status-mtaylor-io
+resources:
+- deployment.yml
+- service.yml
