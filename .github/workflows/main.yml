@@ -94,7 +94,6 @@ jobs:
         tags: |
           latest
           ${{ needs.tag.outputs.tag }}
-          sha-${{ needs.tag.outputs.sha }}
     - name: "Docker Build"
       uses: "docker/build-push-action@v6"
       with:
