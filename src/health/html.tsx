@@ -3,6 +3,7 @@ export { htmlHealth };
 import { render } from 'preact-render-to-string';
 
 import { health } from '../modules';
+import { Status } from '../status';
 import type { Health } from '../status';
 
 
@@ -16,6 +17,25 @@ html, body {
 `
 
 
+function healthColor(status: Status) {
+  switch (status) {
+    case Status.Healthy:
+      return "#00ff00"
+    case Status.Degraded:
+      return "#ffff00"
+    case Status.Unhealthy:
+      return "#ff0000"
+  }
+}
+
+
+function liStyle(component: Health) {
+  return {
+    color: healthColor(component.status),
+  }
+}
+
+
 function HealthComponent(response: Health) {
   const divStyle = {
     width: "100vw",
@@ -25,7 +45,7 @@ function HealthComponent(response: Health) {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#000000",
-    color: "#ffffff",
+    color: healthColor(response.status),
   }
 
   const h1Style = {
@@ -45,7 +65,7 @@ function HealthComponent(response: Health) {
       {response.components && (
         <ul style={ulStyle}>
           {Object.entries(response.components).map(([name, component]) => (
-            <li key={name}>
+            <li key={name} style={liStyle(component)}>
               <strong>{name}</strong>: {component.status}
               {component.message && <p>{component.message}</p>}
             </li>
