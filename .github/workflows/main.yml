@@ -29,6 +29,8 @@ jobs:
     runs-on: status-mtaylor-io-runners-k8s
     container:
       image: images.home.mtaylor.io/deployer:0.0.9
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
