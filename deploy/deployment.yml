@@ -8,6 +8,22 @@ spec:
       containers:
       - name: status-mtaylor-io
         image: images.home.mtaylor.io/status.mtaylor.io
+        env:
+        - name: PGHOST
+          valueFrom:
+            configMapKeyRef:
+              name: status-mtaylor-io
+              key: PGHOST
+        - name: PGUSER
+          valueFrom:
+            configMapKeyRef:
+              name: status-mtaylor-io
+              key: PGUSER
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: status-mtaylor-io
+              key: PGPASSWORD
         ports:
         - name: http
           protocol: TCP

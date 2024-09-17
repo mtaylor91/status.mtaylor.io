@@ -1,5 +1,14 @@
 commonLabels:
   app: status-mtaylor-io
+configMapGenerator:
+- name: status-mtaylor-io
+  literals:
+  - PGHOST=postgres
+  - PGUSER=postgres
+secretGenerator:
+- name: status-mtaylor-io
+  literals:
+  - PGPASSWORD=postgres
 resources:
 - deployment.yml
 - service.yml
