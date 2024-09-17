@@ -5,11 +5,11 @@ import { Status } from './status'
 import type { Health } from './status'
 
 
-function health(): Health {
+async function health(): Promise<Health> {
   const response = {
     status: Status.Healthy,
     components: {
-      postgresql: postgresqlHealth(),
+      postgresql: await postgresqlHealth(),
     }
   }
 

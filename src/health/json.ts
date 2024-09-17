@@ -3,6 +3,6 @@ export { jsonHealth }
 import { health } from '../modules'
 
 
-function jsonHealth() {
-  return health()
+async function jsonHealth() {
+  return await health()
 }
