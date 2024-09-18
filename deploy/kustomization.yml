@@ -1,14 +1,19 @@
 commonLabels:
   app: status-mtaylor-io
 configMapGenerator:
-- name: status-mtaylor-io
-  literals:
+- literals:
   - PGHOST=postgres
   - PGUSER=postgres
+  name: status-mtaylor-io
 secretGenerator:
-- name: status-mtaylor-io
-  literals:
+- literals:
   - PGPASSWORD=postgres
+  name: status-mtaylor-io
 resources:
 - deployment.yml
 - service.yml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+- name: images.home.mtaylor.io/status.mtaylor.io
+  newTag: 0.0.6
