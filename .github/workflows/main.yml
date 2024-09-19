@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: Build Source
-    runs-on: status-mtaylor-io-runners-k8s
+    runs-on: mtaylorio-runners-k8s
     container:
       image: docker.io/oven/bun:1
     steps:
@@ -26,7 +26,7 @@ jobs:
         include-hidden-files: false
   version:
     name: Assign Version
-    runs-on: status-mtaylor-io-runners-k8s
+    runs-on: mtaylorio-runners-k8s
     container:
       image: images.home.mtaylor.io/deployer:0.0.9
     outputs:
@@ -45,7 +45,7 @@ jobs:
         echo "tag=$tag" >> $GITHUB_OUTPUT
   tag:
     name: Tag Repository
-    runs-on: status-mtaylor-io-runners-k8s
+    runs-on: mtaylorio-runners-k8s
     container:
       image: images.home.mtaylor.io/deployer:0.0.9
     needs:
@@ -76,7 +76,7 @@ jobs:
         echo "sha=$sha" >> $GITHUB_OUTPUT
   docker:
     name: Build Docker Image
-    runs-on: status-mtaylor-io-runners-dind
+    runs-on: mtaylorio-runners-dind
     needs:
     - tag
     outputs:
@@ -111,7 +111,7 @@ jobs:
   release:
     name: Release
     environment: production
-    runs-on: status-mtaylor-io-runners-k8s
+    runs-on: mtaylorio-runners-k8s
     container:
       image: "images.home.mtaylor.io/deployer:0.0.9"
     needs:
