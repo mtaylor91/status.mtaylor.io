@@ -135,8 +135,10 @@ jobs:
       run: |
         set -euxo pipefail
         cd argocd-deployment
+        path=home/namespaced/mtaylor-io
         tag=${{ needs.docker.outputs.tag }}
-        ./bin/update-repo-tag.sh home/namespaced/mtaylor-io status.mtaylor.io ${tag}
+        repo=https://github.com/mtaylorio/status
+        ./bin/update-repo-tag.sh ${path} ${repo} ${tag}
         git commit -a -m "Update status.mtaylor.io to ${tag}"
         git push origin main
     - name: "Sync argocd"
