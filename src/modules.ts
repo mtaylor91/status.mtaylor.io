@@ -10,6 +10,8 @@ async function health(): Promise<Health> {
   const response = {
     status: Status.Healthy,
     components: {
+      home: await httpHealth('https://mtaylor.io/'),
+      admin: await httpHealth('https://admin.mtaylor.io/'),
       events: await httpHealth('https://events.mtaylor.io/status'),
       iam: await httpHealth('https://iam.mtaylor.io/status'),
       postgresql: await postgresqlHealth(),
